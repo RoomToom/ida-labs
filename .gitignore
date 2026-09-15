@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.jupyter/
+data/kaggle-dataset.zip
+data/kaggle/Students_Performance_*.csv
+
