@@ -1,0 +1,18 @@
+{
+  "rows": 6497,
+  "columns": 13,
+  "missing_before": 38,
+  "missing_after": 0,
+  "validation_seed": 42,
+  "validation_fraction": 0.2,
+  "mask_probability": 0.1,
+  "selected_imputation": "knn",
+  "selected_scaling": "robust",
+  "standardized_mae": {
+    "knn": 0.2760091603287696,
+    "median": 0.7045911970985462,
+    "mean": 0.7299945160886533,
+    "mode": 0.7437802755630307
+  },
+  "source_sha256": "f90f9f26b25e835c039fdaa18f434155068916c7b0c7544b9662d569c8e75232"
+}

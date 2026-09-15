@@ -1,0 +1,19 @@
+{
+  "collected_at_utc": "2026-09-15T17:32:36.752469+00:00",
+  "sources": [
+    {
+      "url": "https://example.com/",
+      "characters": 142,
+      "file": "webpage_1.txt"
+    },
+    {
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "characters": 7116,
+      "file": "webpage_2.txt"
+    },
+    {
+      "url": "https://api.github.com/",
+      "file": "../result.json"
+    }
+  ]
+}
