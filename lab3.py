@@ -1,4 +1,4 @@
-"""Assignment 3: regression and classification on the available original data."""
+"""Assignment 3: regression and classification on the available original data"""
 import json
 from pathlib import Path
 
