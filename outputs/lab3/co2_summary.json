@@ -1,0 +1,35 @@
+{
+  "status": "completed",
+  "rows": 935,
+  "duplicates_removed": 0,
+  "features": [
+    "Engine_Size"
+  ],
+  "target": "CO2_Emissions",
+  "train_rows": 748,
+  "validation_rows": 187,
+  "selection": "5-fold CV on train, lowest mean RMSE",
+  "selected_model": "polynomial_degree_3",
+  "validation": {
+    "mae": 27.706066503499084,
+    "rmse": 36.977822066966574,
+    "r2": 0.6605551965497358
+  },
+  "baseline": {
+    "mae": 51.40746804312391,
+    "rmse": 64.03263020236517,
+    "r2": -0.017862677809916017
+  },
+  "theta_terms": [
+    "intercept",
+    "Engine_Size",
+    "Engine_Size^2",
+    "Engine_Size^3"
+  ],
+  "theta": [
+    19.069645187882713,
+    140.038522367984,
+    -25.978944651393387,
+    2.0103505046552606
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "completed",
+  "dataset": "septa97/100k-courseras-course-reviews-dataset",
+  "cleaning": {
+    "original_rows": 107018,
+    "missing_rows_removed": 0,
+    "empty_rows_removed": 3,
+    "conflicting_rows_removed": 7563,
+    "duplicates_removed": 2904,
+    "rows_after_cleaning": 96548
+  },
+  "train_rows": 77238,
+  "validation_rows": 19310,
+  "label_counts": {
+    "1": 2383,
+    "2": 2191,
+    "3": 4930,
+    "4": 16842,
+    "5": 70202
+  },
+  "selected_model": "sgd_logistic",
+  "vocabulary_size": 20000,
+  "selection": "3-fold stratified CV on train, highest macro F1; TF-IDF fitted inside each fold",
+  "cv_macro_f1": 0.4148168902080666,
+  "validation": {
+    "accuracy": 0.7410668047643708,
+    "macro_f1": 0.41454222944766383,
+    "weighted_f1": 0.7165888993026621,
+    "baseline_accuracy": 0.7271361988606939,
+    "baseline_macro_f1": 0.1684027465443315
+  },
+  "target": "Review rating, 1 to 5; Id is not a feature"
+}

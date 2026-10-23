@@ -1,0 +1,10 @@
+model,cv_macro_f1,cv_std
+"{'classifier': LogisticRegression(max_iter=2000, random_state=42), 'classifier__C': 0.1}",0.8612782851504512,0.04722935586945684
+"{'classifier': SGDClassifier(loss='log_loss', max_iter=3000, random_state=42, tol=0.0001), 'classifier__alpha': 0.01}",0.86109742931745,0.04143860193185053
+"{'classifier': LogisticRegression(max_iter=2000, random_state=42), 'classifier__C': 1}",0.8569615762713287,0.04089473156907505
+"{'classifier': RidgeClassifier(), 'classifier__alpha': 1}",0.8484699523462123,0.04511399508228076
+"{'classifier': RidgeClassifier(), 'classifier__alpha': 10}",0.8481551305746112,0.053070700455333596
+"{'classifier': RidgeClassifier(), 'classifier__alpha': 0.1}",0.844232384855448,0.043406187933923694
+"{'classifier': LogisticRegression(max_iter=2000, random_state=42), 'classifier__C': 10}",0.8318276489008891,0.035391013260575574
+"{'classifier': SGDClassifier(loss='log_loss', max_iter=3000, random_state=42, tol=0.0001), 'classifier__alpha': 0.001}",0.8107326516360844,0.05615562078480321
+"{'classifier': SGDClassifier(loss='log_loss', max_iter=3000, random_state=42, tol=0.0001), 'classifier__alpha': 0.0001}",0.7980350943221928,0.03069324691797077

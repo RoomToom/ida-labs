@@ -1,0 +1,26 @@
+{
+  "assignment_url": "https://github.com/maxvonlancaster/ida-labs/blob/d9aa2577eec089206f4966569c8e3443ad419ba1/assignement-3.ipynb",
+  "teacher_files": [
+    {
+      "file": "resources/CO2_emission.csv",
+      "url": "https://github.com/maxvonlancaster/ida-labs/blob/d9aa2577eec089206f4966569c8e3443ad419ba1/resources/CO2_emission.csv",
+      "sha256": "2f38bd101a802ee639815105f473d9f85b39415f4c99d4759ec7c71d966b3502"
+    },
+    {
+      "file": "resources/heart.csv",
+      "url": "https://github.com/maxvonlancaster/ida-labs/blob/d9aa2577eec089206f4966569c8e3443ad419ba1/resources/heart.csv",
+      "sha256": "bcd7affc0dd150c42505513681c01bf6e07a039c592569588e73876d52f0fa27"
+    }
+  ],
+  "kaggle": {
+    "dataset": "https://www.kaggle.com/datasets/septa97/100k-courseras-course-reviews-dataset",
+    "download_url": "https://www.kaggle.com/api/v1/datasets/download/septa97/100k-courseras-course-reviews-dataset",
+    "file": "resources/reviews.csv",
+    "sha256": "b8e7acdec24901f645d81a87196e3305263e7f6fe50ea2398a9ac92fc55b382f",
+    "downloaded_at_utc": "2026-10-23T16:19:42.439782+00:00"
+  },
+  "waiting_for_teacher": [
+    "resources/ice_cream_selling_data.csv",
+    "resources/powerconsumption.csv"
+  ]
+}

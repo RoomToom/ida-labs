@@ -1,0 +1,77 @@
+[
+  {
+    "label": 1,
+    "terms": [
+      "poor",
+      "boring",
+      "poorly",
+      "disappointed",
+      "bad",
+      "doesn",
+      "money",
+      "worst",
+      "disappointing",
+      "terrible"
+    ]
+  },
+  {
+    "label": 2,
+    "terms": [
+      "disappointed",
+      "basic",
+      "didn",
+      "boring",
+      "content",
+      "poor",
+      "week",
+      "shallow",
+      "poorly",
+      "did"
+    ]
+  },
+  {
+    "label": 3,
+    "terms": [
+      "basic",
+      "content",
+      "ok",
+      "little",
+      "bit",
+      "needs",
+      "expected",
+      "didn",
+      "lack",
+      "felt"
+    ]
+  },
+  {
+    "label": 4,
+    "terms": [
+      "bit",
+      "little",
+      "overall",
+      "good",
+      "better",
+      "stars",
+      "quite",
+      "maybe",
+      "think",
+      "wish"
+    ]
+  },
+  {
+    "label": 5,
+    "terms": [
+      "excellent",
+      "thank",
+      "best",
+      "great",
+      "amazing",
+      "awesome",
+      "love",
+      "thanks",
+      "fantastic",
+      "loved"
+    ]
+  }
+]

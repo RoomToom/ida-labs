@@ -1,0 +1,179 @@
+{
+  "co2": {
+    "status": "completed",
+    "rows": 935,
+    "duplicates_removed": 0,
+    "features": [
+      "Engine_Size"
+    ],
+    "target": "CO2_Emissions",
+    "train_rows": 748,
+    "validation_rows": 187,
+    "selection": "5-fold CV on train, lowest mean RMSE",
+    "selected_model": "polynomial_degree_3",
+    "validation": {
+      "mae": 27.706066503499084,
+      "rmse": 36.977822066966574,
+      "r2": 0.6605551965497358
+    },
+    "baseline": {
+      "mae": 51.40746804312391,
+      "rmse": 64.03263020236517,
+      "r2": -0.017862677809916017
+    },
+    "theta_terms": [
+      "intercept",
+      "Engine_Size",
+      "Engine_Size^2",
+      "Engine_Size^3"
+    ],
+    "theta": [
+      19.069645187882713,
+      140.038522367984,
+      -25.978944651393387,
+      2.0103505046552606
+    ]
+  },
+  "heart": {
+    "status": "completed",
+    "rows": 302,
+    "duplicates_removed": 1,
+    "features": [
+      "age",
+      "trtbps",
+      "chol",
+      "thalachh",
+      "oldpeak",
+      "sex",
+      "cp",
+      "fbs",
+      "restecg",
+      "exng",
+      "slp",
+      "caa",
+      "thall"
+    ],
+    "train_rows": 241,
+    "validation_rows": 61,
+    "selected_model": "LogisticRegression",
+    "selected_params": "{'classifier': LogisticRegression(max_iter=2000, random_state=42), 'classifier__C': 0.1}",
+    "selection": "5-fold stratified CV on train, highest macro F1",
+    "cv_macro_f1": 0.8612782851504512,
+    "validation": {
+      "accuracy": 0.8524590163934426,
+      "macro_f1": 0.8498769483182937,
+      "weighted_f1": 0.8514907408652618,
+      "baseline_accuracy": 0.5409836065573771,
+      "baseline_macro_f1": 0.35106382978723405,
+      "roc_auc": 0.8928571428571428
+    },
+    "target_note": "Predicts output labels in the supplied dataset, not calibrated clinical risk.",
+    "theta_terms": [
+      "intercept",
+      "numeric__age",
+      "numeric__trtbps",
+      "numeric__chol",
+      "numeric__thalachh",
+      "numeric__oldpeak",
+      "categorical__sex_0",
+      "categorical__sex_1",
+      "categorical__cp_0",
+      "categorical__cp_1",
+      "categorical__cp_2",
+      "categorical__cp_3",
+      "categorical__fbs_0",
+      "categorical__fbs_1",
+      "categorical__restecg_0",
+      "categorical__restecg_1",
+      "categorical__restecg_2",
+      "categorical__exng_0",
+      "categorical__exng_1",
+      "categorical__slp_0",
+      "categorical__slp_1",
+      "categorical__slp_2",
+      "categorical__caa_0",
+      "categorical__caa_1",
+      "categorical__caa_2",
+      "categorical__caa_3",
+      "categorical__caa_4",
+      "categorical__thall_0",
+      "categorical__thall_1",
+      "categorical__thall_2",
+      "categorical__thall_3"
+    ],
+    "theta": [
+      0.08318392897995042,
+      -0.009790398371476884,
+      -0.14732720039435834,
+      -0.28783166091156054,
+      0.29882596234448755,
+      -0.42419307799190376,
+      0.3132866512102477,
+      -0.31370518189114555,
+      -0.6703105501260561,
+      0.09321644283381435,
+      0.37395588236852506,
+      0.20271969424281933,
+      -0.000258057163749137,
+      -0.00016047351714859446,
+      -0.13844867353104814,
+      0.15663538023315932,
+      -0.018605237383008805,
+      0.30053871144492456,
+      -0.3009572421258223,
+      0.017399043149858316,
+      -0.22914755359820982,
+      0.211329979767454,
+      0.541518826015856,
+      -0.2531358036384753,
+      -0.25215246648465905,
+      -0.09079906330787055,
+      0.05414997673425116,
+      0.014193076092690396,
+      -0.08106758732399606,
+      0.5750457611202928,
+      -0.5085897805698849
+    ]
+  },
+  "text": {
+    "status": "completed",
+    "dataset": "septa97/100k-courseras-course-reviews-dataset",
+    "cleaning": {
+      "original_rows": 107018,
+      "missing_rows_removed": 0,
+      "empty_rows_removed": 3,
+      "conflicting_rows_removed": 7563,
+      "duplicates_removed": 2904,
+      "rows_after_cleaning": 96548
+    },
+    "train_rows": 77238,
+    "validation_rows": 19310,
+    "label_counts": {
+      "1": 2383,
+      "2": 2191,
+      "3": 4930,
+      "4": 16842,
+      "5": 70202
+    },
+    "selected_model": "sgd_logistic",
+    "vocabulary_size": 20000,
+    "selection": "3-fold stratified CV on train, highest macro F1; TF-IDF fitted inside each fold",
+    "cv_macro_f1": 0.4148168902080666,
+    "validation": {
+      "accuracy": 0.7410668047643708,
+      "macro_f1": 0.41454222944766383,
+      "weighted_f1": 0.7165888993026621,
+      "baseline_accuracy": 0.7271361988606939,
+      "baseline_macro_f1": 0.1684027465443315
+    },
+    "target": "Review rating, 1 to 5; Id is not a feature"
+  },
+  "ice_cream": {
+    "status": "waiting_for_teacher_file",
+    "file": "resources/ice_cream_selling_data.csv"
+  },
+  "power": {
+    "status": "waiting_for_teacher_file",
+    "file": "resources/powerconsumption.csv"
+  }
+}
