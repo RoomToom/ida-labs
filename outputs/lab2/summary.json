@@ -1,0 +1,22 @@
+{
+  "lecture": {
+    "documents": 3,
+    "vocabulary": 28,
+    "empty_documents": [],
+    "most_similar_pair": {
+      "document_1": "D1",
+      "document_2": "D2",
+      "cosine": 0.36644681626651315
+    }
+  },
+  "own": {
+    "documents": 8,
+    "vocabulary": 90,
+    "empty_documents": [],
+    "most_similar_pair": {
+      "document_1": "D3",
+      "document_2": "D4",
+      "cosine": 0.7162024480105248
+    }
+  }
+}

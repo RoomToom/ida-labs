@@ -1,0 +1,10 @@
+[
+  "NLP systems process human language. A Python program cleans text, corrects spelling, and represents documents as vectors. Cosine similarity compares these document vectors.",
+  "Natural language processing in Python starts with text cleaning. We correct spelling, remove punctuation, and build document vectors to calculate cosine similarity between texts.",
+  "An ML model learns patterns from training data. A programmer uses Python to split the dataset into training and validation subsets and measure prediction errors.",
+  "Machine learning uses training data to learn patterns. Validation data measures prediction errors and helps compare models before evaluating a separate test dataset.",
+  "Heavy rain can cause a river flood. Emergency teams monitor rainfall, river levels, and flood forecasts to warn people living near the river.",
+  "A river flood warning depends on rainfall and rising river levels. Emergency teams use weather forecasts to prepare evacuation routes before heavy rain arrives.",
+  "A healthy diet includes vegetables, fruit, beans, and whole grains. Cooking meals at home helps people choose ingredients and plan balanced portions.",
+  "Basketball players practice passing, shooting, and defending. A team scores points by throwing the ball through a hoop during a basketball game."
+]

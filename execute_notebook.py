@@ -1,5 +1,6 @@
 """Execute all notebook cells with the current Python environment."""
 import os
+import argparse
 from pathlib import Path
 import nbformat
 from nbclient import NotebookClient
@@ -10,7 +11,10 @@ os.environ.setdefault("JUPYTER_RUNTIME_DIR", str(ROOT / ".jupyter" / "runtime"))
 os.environ.setdefault("IPYTHONDIR", str(ROOT / ".jupyter" / "ipython"))
 Path(os.environ["JUPYTER_RUNTIME_DIR"]).mkdir(parents=True, exist_ok=True)
 Path(os.environ["IPYTHONDIR"]).mkdir(parents=True, exist_ok=True)
-path = ROOT / "assignement-1.ipynb"
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("notebook", nargs="?", default="assignement-1.ipynb")
+args = parser.parse_args()
+path = ROOT / args.notebook
 notebook = nbformat.read(path, as_version=4)
 NotebookClient(notebook, timeout=240, kernel_name="python3",
                resources={"metadata": {"path": str(ROOT)}}).execute()

@@ -57,3 +57,9 @@ typing_extensions==4.16.0
 tzdata==2026.4
 urllib3==2.7.0
 wcwidth==0.8.3
+click==8.5.0
+defusedxml==0.7.1
+nltk==3.10.4
+pyspellchecker==0.9.1
+regex==2026.9.29
+tqdm==4.70.1
