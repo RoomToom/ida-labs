@@ -1,12 +1,12 @@
 {
-  "assignment_url": "https://github.com/maxvonlancaster/ida-labs/blob/dd4c58b6569568f137bbfb38c8be0c761744289a/assignement-2.ipynb",
-  "lecture_url": "https://github.com/maxvonlancaster/intelligent-data-analysis/blob/4cc5a33cd4606849cb999925db8c6252b9151d31/src/106-nlp.ipynb",
-  "lecture_cell_id": "f82b0058",
-  "lecture_cell_index_zero_based": 13,
-  "adaptation": "resources/data.json is absent in both upstream repositories. The first literal documents list from the lecture is exported unchanged into resources/data.json.",
-  "lecture_corpus_sha256": "8315162bba77e00289e3da1ec5daab3b1dd1051aeb46fac8058e0dbb360e7491",
+  "assignment_url": "https://github.com/maxvonlancaster/ida-labs/blob/d9aa2577eec089206f4966569c8e3443ad419ba1/assignement-2.ipynb",
+  "teacher_corpus_url": "https://github.com/maxvonlancaster/ida-labs/blob/d9aa2577eec089206f4966569c8e3443ad419ba1/resources/data.json",
+  "teacher_corpus_file": "resources/data.json",
+  "teacher_corpus_sha256": "9f1b76289833e7c0ee95df3a05cddabe7d93778a4fa85965e2b30da64becb9a2",
+  "teacher_documents": 10,
+  "copy_method": "Original resources/data.json copied byte-for-byte from the upstream Git commit.",
   "own_corpus": "Original English example paragraphs prepared for assignment 2, task 5; not external observations or lecturer-provided data.",
   "own_corpus_file": "resources/lab2_own_texts.json",
   "own_corpus_sha256": "3191d378d7401bad0043e4c9931d4453e273434adb1e632e022c0601c462e978",
-  "prepared_at_utc": "2026-10-23T15:14:22.233093+00:00"
+  "updated_at_utc": "2026-10-23T15:36:07.319350+00:00"
 }

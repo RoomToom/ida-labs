@@ -1,12 +1,12 @@
 {
-  "lecture": {
-    "documents": 3,
-    "vocabulary": 28,
+  "teacher": {
+    "documents": 10,
+    "vocabulary": 167,
     "empty_documents": [],
     "most_similar_pair": {
       "document_1": "D1",
-      "document_2": "D2",
-      "cosine": 0.36644681626651315
+      "document_2": "D4",
+      "cosine": 0.20083441379139688
     }
   },
   "own": {

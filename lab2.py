@@ -57,6 +57,7 @@ def spell_checker():
         "python", "numpy", "pandas", "tfidf", "json", "csv", "github", "inception",
         "matplotlib", "cosine", "tokenization", "stemming", "lemmatization",
         "postgresql", "kharkiv", "kyiv", "embeddings",
+        "oppenheimer", "cillian", "murphy", "nolan", "dijkstra", "kruskal",
     ])
     return checker
 
@@ -147,7 +148,7 @@ def visualize_data(cosine_matrix, texts_processed, filename="cosine_similarity.p
 
 
 def get_texts():
-    """Load the separate original corpus for task 5 (not the lecture examples)."""
+    """Load the separate original corpus for task 5."""
     return extract_texts_from_file("resources/lab2_own_texts.json")
 
 
@@ -178,7 +179,7 @@ def analyse_corpus(texts, name):
         indices = sorted(np.flatnonzero(weights), key=lambda i: (-weights[i], terms[i]))[:5]
         top_terms.append({"document": ids[row], "terms": ", ".join(terms[indices])})
     image = visualize_data(cosine_matrix, processed, f"{name}_cosine.png",
-                           "Тексти лекції: TF-IDF" if name == "lecture" else "Власні тексти: TF-IDF")
+                           "Тексти викладача: TF-IDF" if name == "teacher" else "Власні тексти: TF-IDF")
     return {"processed": processed, "audit": audit, "cosine": cosine_matrix,
             "features": features, "terms": terms, "top_terms": top_terms,
             "pairs": pairs, "image": image}
@@ -186,7 +187,7 @@ def analyse_corpus(texts, name):
 
 def main():
     summaries = {}
-    for name, texts in (("lecture", extract_texts_from_file("resources/data.json")),
+    for name, texts in (("teacher", extract_texts_from_file("resources/data.json")),
                         ("own", get_texts())):
         result = analyse_corpus(texts, name)
         summaries[name] = {"documents": len(texts), "vocabulary": len(result["terms"]),

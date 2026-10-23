@@ -37,6 +37,13 @@ class TextProcessingTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             lab2.process_texts(["Український текст"])
 
+    def test_teacher_names_and_typographic_apostrophe(self):
+        _, audit = lab2.process_texts_with_audit(["Cillian Murphy’s film Oppenheimer."])
+        self.assertEqual(audit[0]["spelling_corrections"], {})
+        self.assertIn("cillian", audit[0]["tokens_before_correction"])
+        self.assertIn("murphy", audit[0]["tokens_before_correction"])
+        self.assertNotIn("s", audit[0]["tokens_before_correction"])
+
 
 class SimilarityTests(unittest.TestCase):
     def test_cosine_has_expected_pairs_and_zero_vector(self):

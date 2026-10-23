@@ -1,5 +1,14 @@
-[
-  "In Inception, the plot unfolds with thrilling action, keeping audiences on edge through a series of intense and unexpected twists.",
-  "The story of Inception keeps audiences hooked with its thrilling action and surprising twists, making every moment unforgettable.",
-  "The Matrix transformation preserves the vector's direction, illustrating how linear combinations affect the overall system."
-]
+{
+    "texts": [
+        "Oppenheimer, directed by Christopher Nolan, delves into the life of J. Robert Oppenheimer, the theoretical physicist who led the development of the atomic bomb. The film explores his moral and emotional struggles.",
+        "Oppenheimer captures the life of the 'father of the atomic bomb' and his internal conflict after the success of the Manhattan Project. The film's complex narrative reflects on the cost of scientific achievement.",
+        "In Oppenheimer, Cillian Murphy delivers a riveting performance as the conflicted physicist who grapples with the consequences of his groundbreaking work on the atomic bomb, under the weight of global politics and ethics.",
+        "Oppenheimer is a cinematic exploration of ambition, guilt, and responsibility. Through stunning visuals and a thought-provoking story, Nolan brings the life of the brilliant but haunted physicist to the big screen.",
+        "Ducks are versatile waterfowl, known for their adaptability in freshwater and coastal habitats. With webbed feet and waterproof feathers, they are excellent swimmers, migrating long distances to find food and warmer climates.",
+        "The lamp is a spider but it talks. Yesterday, I flew but nobody noticed, except the toaster. It watches. Blue smells better than today, and doors are laughing. Understand? They whisper secrets about orange socks.",
+        "Ducks communicate using a range of vocalizations, including quacks, whistles, and grunts. They are social birds, often found in flocks, and play a crucial role in maintaining the balance of aquatic ecosystems.",
+        "Graph theory studies the relationships between objects through vertices (nodes) and edges (connections). It’s fundamental in computer science, optimizing networks like social media connections, transportation routes, and internet structures.",
+        "In graph theory, problems like finding the shortest path or detecting cycles in networks are crucial. Algorithms such as Dijkstra's and Kruskal's help solve these, benefiting fields from telecommunications to biology.",
+        "Graph theory examines the structural properties of graphs, which represent real-world systems. Applications include network analysis, circuit design, and scheduling problems, making it an essential tool in various fields of research."
+    ]
+}
