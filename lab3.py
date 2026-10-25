@@ -1,4 +1,4 @@
-"""Assignment 3: regression and classification on the available original data"""
+"""Assignment 3: regression and classification."""
 import json
 from pathlib import Path
 
@@ -289,7 +289,7 @@ def heart_classification(data):
 
 
 def load_dataset(url=REVIEWS_DATASET, csv_file="reviews.csv"):
-    """Read the locally preserved original Kaggle CSV."""
+    """Read Coursera reviews from CSV."""
     if url != REVIEWS_DATASET or csv_file != "reviews.csv":
         raise ValueError("Use the documented Coursera Reviews dataset and reviews.csv.")
     return extract_texts_from_file("resources/reviews.csv")
