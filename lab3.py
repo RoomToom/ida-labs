@@ -15,7 +15,7 @@ from sklearn.linear_model import LinearRegression, LogisticRegression, RidgeClas
 from sklearn.metrics import (ConfusionMatrixDisplay, RocCurveDisplay, accuracy_score,
                              classification_report, f1_score, mean_absolute_error,
                              r2_score, root_mean_squared_error, roc_auc_score)
-from sklearn.model_selection import (GridSearchCV, KFold, StratifiedKFold,
+from sklearn.model_selection import (GridSearchCV, KFold, StratifiedKFold, TimeSeriesSplit,
                                      cross_val_score, train_test_split)
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline, make_pipeline
@@ -66,15 +66,21 @@ def regression_metrics(actual, predicted):
             "r2": float(r2_score(actual, predicted))}
 
 
-def fit_regression(data, features, target, name):
+def fit_regression(data, features, target, name, chronological=False):
     """Choose polynomial degree on train CV; evaluate once on held-out rows."""
     frame = data.drop_duplicates().copy()
     X = frame[features].apply(pd.to_numeric, errors="raise")
     y = pd.to_numeric(frame[target], errors="raise")
     if not np.isfinite(X.to_numpy()).all() or not np.isfinite(y.to_numpy()).all():
         raise ValueError("Regression input must contain finite numeric features and targets.")
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=.2, random_state=SEED)
-    folds = KFold(n_splits=5, shuffle=True, random_state=SEED)
+    if chronological:
+        boundary = int(len(frame) * .8)
+        X_train, X_val = X.iloc[:boundary], X.iloc[boundary:]
+        y_train, y_val = y.iloc[:boundary], y.iloc[boundary:]
+        folds = TimeSeriesSplit(n_splits=5)
+    else:
+        X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=.2, random_state=SEED)
+        folds = KFold(n_splits=5, shuffle=True, random_state=SEED)
     rows, candidates = [], {}
     for degree in (1, 2, 3):
         model = make_pipeline(PolynomialFeatures(degree=degree, include_bias=False), LinearRegression())
@@ -96,40 +102,102 @@ def fit_regression(data, features, target, name):
     pd.DataFrame({"term": ["intercept", *terms], "coefficient": theta}).to_csv(
         OUTPUTS / f"{name}_coefficients.csv", index=False)
     validation = X_val.copy()
+    if chronological:
+        validation.insert(0, "Datetime", frame.loc[X_val.index, "Datetime"])
     validation["actual"] = y_val
     validation["predicted"] = predictions
     validation.to_csv(OUTPUTS / f"{name}_validation.csv", index_label="source_row")
     save_json(f"{name}_split.json", {"train_rows": X_train.index.tolist(), "validation_rows": X_val.index.tolist()})
     summary = {"status": "completed", "rows": len(frame), "duplicates_removed": len(data)-len(frame),
                "features": features, "target": target, "train_rows": len(X_train), "validation_rows": len(X_val),
-               "selection": "5-fold CV on train, lowest mean RMSE", "selected_model": best_name,
+               "selection": "5-fold expanding time CV on train, lowest mean RMSE" if chronological
+                            else "5-fold CV on train, lowest mean RMSE",
+               "split": "chronological_80_20" if chronological else "random_80_20_seed_42",
+               "selected_model": best_name,
                "validation": regression_metrics(y_val, predictions),
                "baseline": regression_metrics(y_val, baseline.predict(X_val)),
                "theta_terms": ["intercept", *terms], "theta": theta}
+    labels = {
+        "co2": (["Об’єм двигуна, л"], "CO₂, г/км", "CO₂: прогноз лише за об’ємом двигуна"),
+        "ice_cream": (["Температура, °C"], "Продажі, одиниці", "Продажі морозива залежно від температури"),
+        "power": (["Температура", "Вологість", "Швидкість вітру"],
+                  "Сума споживання 3 зон, одиниці файла", "Електроспоживання: зрізи моделі за погодою"),
+    }
+    x_labels, y_label, title = labels[name]
+    if chronological:
+        dates = pd.to_datetime(frame["Datetime"])
+        summary["train_start"] = dates.loc[X_train.index].min().isoformat()
+        summary["train_end"] = dates.loc[X_train.index].max().isoformat()
+        summary["validation_start"] = dates.loc[X_val.index].min().isoformat()
+        summary["validation_end"] = dates.loc[X_val.index].max().isoformat()
+        summary["target_definition"] = "Sum of PowerConsumption_Zone1, Zone2 and Zone3 at the same timestamp."
+        summary["target_units"] = "Original file units; no unit conversion or energy integration applied."
     save_json(f"{name}_summary.json", summary)
-    fig, ax = plt.subplots(figsize=(9, 5), layout="constrained")
-    ax.scatter(X_train.iloc[:, 0], y_train, s=14, alpha=.3, label="Train")
-    ax.scatter(X_val.iloc[:, 0], y_val, s=20, alpha=.6, label="Validation")
-    grid = pd.DataFrame({features[0]: np.linspace(X.iloc[:, 0].min(), X.iloc[:, 0].max(), 250)})
-    ax.plot(grid.iloc[:, 0], best.predict(grid), c="#a93431", lw=2, label=best_name)
-    ax.set(xlabel="Об’єм двигуна, л", ylabel="CO₂, г/км", title="CO₂: прогноз лише за об’ємом двигуна")
-    ax.legend()
-    ax.grid(alpha=.15)
+    if len(features) == 1:
+        fig, ax = plt.subplots(figsize=(9, 5), layout="constrained")
+        ax.scatter(X_train.iloc[:, 0], y_train, s=14, alpha=.3, label="Train")
+        ax.scatter(X_val.iloc[:, 0], y_val, s=20, alpha=.6, label="Validation")
+        grid = pd.DataFrame({features[0]: np.linspace(X.iloc[:, 0].min(), X.iloc[:, 0].max(), 250)})
+        ax.plot(grid.iloc[:, 0], best.predict(grid), c="#a93431", lw=2, label=best_name)
+        ax.set(xlabel=x_labels[0], ylabel=y_label, title=title)
+        ax.legend()
+        ax.grid(alpha=.15)
+    else:
+        fig, axes = plt.subplots(1, len(features), figsize=(15, 4), layout="constrained")
+        for j, (feature, ax) in enumerate(zip(features, axes)):
+            grid = pd.DataFrame(np.tile(X_train.median().to_numpy(), (250, 1)), columns=features)
+            grid[feature] = np.linspace(X_train[feature].min(), X_train[feature].max(), 250)
+            ax.scatter(X_val[feature], y_val, s=3, alpha=.08, label="Validation: факт")
+            ax.plot(grid[feature], best.predict(grid), c="#a93431", lw=2,
+                    label="Модель; інші ознаки = медіани train")
+            ax.set(xlabel=x_labels[j], ylabel=y_label if j == 0 else "")
+        axes[0].legend(fontsize=8)
+        fig.suptitle(title)
     save_plot(fig, f"{name}_model.png")
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), layout="constrained")
     axes[0].scatter(y_val, predictions, s=15, alpha=.5)
     bounds = [min(y_val.min(), predictions.min()), max(y_val.max(), predictions.max())]
     axes[0].plot(bounds, bounds, "--", c="grey")
-    axes[0].set(xlabel="Фактичне CO₂, г/км", ylabel="Прогноз CO₂, г/км", title="Validation: факт і прогноз")
+    axes[0].set(xlabel=f"Факт: {y_label}", ylabel=f"Прогноз: {y_label}", title="Validation: факт і прогноз")
     axes[1].scatter(predictions, y_val.to_numpy()-predictions, s=15, alpha=.5)
     axes[1].axhline(0, c="grey", ls="--")
-    axes[1].set(xlabel="Прогноз CO₂, г/км", ylabel="Залишок, г/км", title="Validation: залишки")
+    axes[1].set(xlabel=f"Прогноз: {y_label}", ylabel="Залишок в одиницях цілі", title="Validation: залишки")
     save_plot(fig, f"{name}_validation.png")
+    if chronological:
+        daily = validation.set_index("Datetime")[["actual", "predicted"]].resample("D").mean()
+        fig, ax = plt.subplots(figsize=(11, 4), layout="constrained")
+        ax.plot(daily.index, daily.actual, label="Факт")
+        ax.plot(daily.index, daily.predicted, label="Прогноз за погодою")
+        ax.set(title="Validation у часі: добові середні споживання", xlabel="Дата", ylabel=y_label)
+        ax.legend()
+        ax.tick_params(axis="x", rotation=20)
+        save_plot(fig, "power_time.png")
     return theta
 
 
 def CO2_emissions(data):
     return fit_regression(data, ["Engine_Size"], "CO2_Emissions", "co2")
+
+
+def ice_cream_selling(data):
+    return fit_regression(data, ["Temperature (°C)"], "Ice Cream Sales (units)", "ice_cream")
+
+
+def prepare_power(data):
+    frame = data.drop_duplicates().copy()
+    frame["Datetime"] = pd.to_datetime(frame.Datetime, format="%m/%d/%Y %H:%M", errors="raise")
+    if frame.Datetime.duplicated().any():
+        raise ValueError("Conflicting rows share a timestamp; resolve them before training.")
+    zones = ["PowerConsumption_Zone1", "PowerConsumption_Zone2", "PowerConsumption_Zone3"]
+    if not np.isfinite(frame[zones].to_numpy(dtype=float)).all():
+        raise ValueError("All three zone measurements are required to compute the total.")
+    frame["PowerConsumption_Total"] = frame[zones].sum(axis=1)
+    return frame.sort_values("Datetime")
+
+
+def power_consumption(data):
+    return fit_regression(prepare_power(data), ["Temperature", "Humidity", "WindSpeed"],
+                          "PowerConsumption_Total", "power", chronological=True)
 
 
 def heart_preprocessor():
@@ -309,16 +377,16 @@ def classify_text_ml(data):
 
 def write_summary():
     result = {}
-    for name in ("co2", "heart", "text"):
+    for name in ("co2", "ice_cream", "power", "heart", "text"):
         result[name] = json.loads((OUTPUTS / f"{name}_summary.json").read_text(encoding="utf-8"))
-    result["ice_cream"] = {"status": "waiting_for_teacher_file", "file": "resources/ice_cream_selling_data.csv"}
-    result["power"] = {"status": "waiting_for_teacher_file", "file": "resources/powerconsumption.csv"}
     save_json("summary.json", result)
     return result
 
 
 if __name__ == "__main__":
     CO2_emissions(extract_texts_from_file("resources/CO2_emission.csv"))
+    ice_cream_selling(extract_texts_from_file("resources/ice_cream_selling_data.csv"))
+    power_consumption(extract_texts_from_file("resources/powerconsumption.csv"))
     heart_classification(extract_texts_from_file("resources/heart.csv"))
     classify_text_ml(load_dataset())
     print(json.dumps(write_summary(), ensure_ascii=False, indent=2))

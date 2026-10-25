@@ -1,0 +1,56 @@
+{
+  "status": "completed",
+  "rows": 52416,
+  "duplicates_removed": 0,
+  "features": [
+    "Temperature",
+    "Humidity",
+    "WindSpeed"
+  ],
+  "target": "PowerConsumption_Total",
+  "train_rows": 41932,
+  "validation_rows": 10484,
+  "selection": "5-fold expanding time CV on train, lowest mean RMSE",
+  "split": "chronological_80_20",
+  "selected_model": "polynomial_degree_2",
+  "validation": {
+    "mae": 11162.967372930938,
+    "rmse": 13406.526702140534,
+    "r2": 0.09724045852484575
+  },
+  "baseline": {
+    "mae": 13954.294408650354,
+    "rmse": 16199.125854476159,
+    "r2": -0.3180220969080467
+  },
+  "theta_terms": [
+    "intercept",
+    "Temperature",
+    "Humidity",
+    "WindSpeed",
+    "Temperature^2",
+    "Temperature Humidity",
+    "Temperature WindSpeed",
+    "Humidity^2",
+    "Humidity WindSpeed",
+    "WindSpeed^2"
+  ],
+  "theta": [
+    100105.178586316,
+    -3741.5442407489513,
+    -10.826109833464628,
+    -22854.09282212622,
+    79.13507904554524,
+    30.117092586236275,
+    96.57506411149664,
+    -4.709224181531688,
+    -25.79242252991437,
+    4444.947602070709
+  ],
+  "train_start": "2017-01-01T00:00:00",
+  "train_end": "2017-10-19T04:30:00",
+  "validation_start": "2017-10-19T04:40:00",
+  "validation_end": "2017-12-30T23:50:00",
+  "target_definition": "Sum of PowerConsumption_Zone1, Zone2 and Zone3 at the same timestamp.",
+  "target_units": "Original file units; no unit conversion or energy integration applied."
+}

@@ -42,6 +42,30 @@ class PreparationTests(unittest.TestCase):
         preprocessor.transform(source.iloc[30:40])
         np.testing.assert_array_equal(scaler.mean_, before)
 
+    def test_power_total_and_chronological_order(self):
+        frame = pd.DataFrame({"Datetime": ["1/2/2017 0:00", "1/1/2017 0:00"],
+                              "Temperature": [10, 9], "Humidity": [70, 71], "WindSpeed": [1, 2],
+                              "PowerConsumption_Zone1": [100, 200],
+                              "PowerConsumption_Zone2": [10, 20],
+                              "PowerConsumption_Zone3": [1, 2]})
+        result = lab3.prepare_power(frame)
+        self.assertEqual(result.index.tolist(), [1, 0])
+        self.assertEqual(result.PowerConsumption_Total.tolist(), [222, 111])
+        self.assertTrue(result.Datetime.is_monotonic_increasing)
+        self.assertNotIn("PowerConsumption_Total", frame)
+
+    def test_power_rejects_ambiguous_timestamp_and_missing_zone(self):
+        frame = pd.DataFrame({"Datetime": ["1/1/2017 0:00", "1/1/2017 0:00"],
+                              "PowerConsumption_Zone1": [100, 200],
+                              "PowerConsumption_Zone2": [10, 20],
+                              "PowerConsumption_Zone3": [1, 2]})
+        with self.assertRaises(ValueError):
+            lab3.prepare_power(frame)
+        frame.loc[1, "Datetime"] = "1/2/2017 0:00"
+        frame.loc[1, "PowerConsumption_Zone3"] = np.nan
+        with self.assertRaises(ValueError):
+            lab3.prepare_power(frame)
+
 
 class ModelChecks(unittest.TestCase):
     def test_polynomial_theta_matches_predictions(self):

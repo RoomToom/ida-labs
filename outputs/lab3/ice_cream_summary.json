@@ -1,0 +1,34 @@
+{
+  "status": "completed",
+  "rows": 49,
+  "duplicates_removed": 0,
+  "features": [
+    "Temperature (°C)"
+  ],
+  "target": "Ice Cream Sales (units)",
+  "train_rows": 39,
+  "validation_rows": 10,
+  "selection": "5-fold CV on train, lowest mean RMSE",
+  "split": "random_80_20_seed_42",
+  "selected_model": "polynomial_degree_2",
+  "validation": {
+    "mae": 3.2299819836597288,
+    "rmse": 3.857304297171989,
+    "r2": 0.8430551371938839
+  },
+  "baseline": {
+    "mae": 10.632488584811211,
+    "rmse": 11.44855082778781,
+    "r2": -0.38254837400091724
+  },
+  "theta_terms": [
+    "intercept",
+    "Temperature (°C)",
+    "Temperature (°C)^2"
+  ],
+  "theta": [
+    2.768305829573862,
+    -0.7064192581346761,
+    1.8714512493550588
+  ]
+}

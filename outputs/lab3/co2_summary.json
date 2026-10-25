@@ -9,6 +9,7 @@
   "train_rows": 748,
   "validation_rows": 187,
   "selection": "5-fold CV on train, lowest mean RMSE",
+  "split": "random_80_20_seed_42",
   "selected_model": "polynomial_degree_3",
   "validation": {
     "mae": 27.706066503499084,
