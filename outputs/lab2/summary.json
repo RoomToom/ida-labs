@@ -1,5 +1,5 @@
 {
-  "teacher": {
+  "corpus": {
     "documents": 10,
     "vocabulary": 167,
     "empty_documents": [],
