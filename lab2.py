@@ -1,4 +1,4 @@
-"""Assignment 2: English text preprocessing, TF-IDF and cosine similarity."""
+"""Assignment 2: English text preprocessing, TF-IDF and cosine similarity"""
 from functools import lru_cache
 import json
 from pathlib import Path
